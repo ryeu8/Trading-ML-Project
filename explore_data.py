@@ -7,6 +7,8 @@ data.columns = data.columns.droplevel(1)
 data["Return"] = data["Close"].pct_change()
 print(data.head())
 
+
+
 data = data.dropna()
 print(data.shape)
 
@@ -16,3 +18,7 @@ plt.title("AAPL Closing Price")
 plt.xlabel("Date")
 plt.ylabel("Price ($)")
 plt.savefig("aapl_price.png")
+
+
+data["MA20"] = data["Close"].rolling(20).mean()
+print(data[["Close", "MA20"]].tail(10))
