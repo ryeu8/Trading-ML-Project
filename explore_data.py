@@ -25,4 +25,8 @@ data["MA20"] = data["Close"].rolling(20).mean()
 
 data["Volatility"] = data["Return"].rolling(20).std()
 data["Momentum"] = data["Close"].pct_change(10)
-print(data[["Close", "Volatility", "Momentum"]].tail(10))
+# print(data[["Close", "Volatility", "Momentum"]].tail(10))
+
+data["Target"] = (data["Return"].shift(-1) > 0).astype(int)
+data = data.dropna()
+print(data[["Close", "Return", "Target"]].tail(10))
