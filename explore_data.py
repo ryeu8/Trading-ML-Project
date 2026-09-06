@@ -1,16 +1,16 @@
 import yfinance as yf
 data = yf.download("AAPL", period="1y")
-print(data.head())
-print(data.shape)
-print(data.columns)
+# print(data.head())
+# print(data.shape)
+# print(data.columns)
 data.columns = data.columns.droplevel(1)
 data["Return"] = data["Close"].pct_change()
-print(data.head())
+# print(data.head())
 
 
 
 data = data.dropna()
-print(data.shape)
+# print(data.shape)
 
 import matplotlib.pyplot as plt
 plt.plot(data.index, data["Close"])
@@ -21,4 +21,8 @@ plt.savefig("aapl_price.png")
 
 
 data["MA20"] = data["Close"].rolling(20).mean()
-print(data[["Close", "MA20"]].tail(10))
+# print(data[["Close", "MA20"]].tail(10))
+
+data["Volatility"] = data["Return"].rolling(20).std()
+data["Momentum"] = data["Close"].pct_change(10)
+print(data[["Close", "Volatility", "Momentum"]].tail(10))
