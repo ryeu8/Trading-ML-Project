@@ -29,4 +29,17 @@ data["Momentum"] = data["Close"].pct_change(10)
 
 data["Target"] = (data["Return"].shift(-1) > 0).astype(int)
 data = data.dropna()
-print(data[["Close", "Return", "Target"]].tail(10))
+# print(data[["Close", "Return", "Target"]].tail(10))
+
+
+X = data[["MA20", "Volatility", "Momentum"]]
+y = data["Target"]
+
+split_index = int(len(data) * 0.8)
+
+X_train = X.iloc[:split_index]
+X_test = X.iloc[split_index:]
+y_train = y.iloc[:split_index]
+y_test = y.iloc[split_index:]
+
+print(X_train.shape, X_test.shape)
