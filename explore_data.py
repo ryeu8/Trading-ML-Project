@@ -2,7 +2,9 @@ import yfinance as yf
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
+
 
 data = yf.download("AAPL", period="1y")
 data.columns = data.columns.droplevel(1)
@@ -48,3 +50,8 @@ print(predictions)
 
 baseline = max(y_test.mean(), 1 - y_test.mean())
 print("Baseline (always guess majority class):", baseline)
+
+
+
+cm = confusion_matrix(y_test, predictions)
+print(cm)
